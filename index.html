@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Little Suprise for you</title>
+
+    <!-- Google Fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+     <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f8f1f2;
+    color: #604b52;
+    font-family: 'montserrat', sans-serif;
+}
+
+.page{
+    display: none;
+    min-height: 100vh;
+    padding: 35px 22px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.page.active {
+    display: flex;
+}
+
+h1, h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 55px;
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: 38px;
+}
+
+p 
+{
+    font-size: 13px;
+    line-height: 1.9;
+    max-width: 480px;
+}
+
+.small {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #a77c89;
+    text-transform: uppercase;
+}
+
+button {
+    border: none;
+    background: #bd8998;
+    color: white;
+    padding: 13px 25px;
+    margin: 12px 5px;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0,3s;
+}
+
+button:hover {
+    background: #986777;
+}
+
+.answer:hover {
+    background: #ead9de;
+    color: #604b52;
+}
+
+.photo {
+    width: 180px;
+    max-width: 75vw;
+    height: 200px;
+    object-fit: cover;
+    margin: 8px;
+}
+
+.letter {
+    background: #fffafa;
+    padding: 25px;
+    max-width: 550px;
+    text-align: left;
+    line-height: 2;
+    border: 1px solid #ead9de;
+
+}
+
+.letter p {
+    white-space: pre-line;
+}
+
+.page {
+    background-image: url("closing-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+#page2 {
+    background-image: linear-gradient(
+        135deg,
+        #263B59 0%,
+        #63758A 48%,
+        #D0D3D7 100%
+        
+    );
+}
+
+/* PERTANYAAN TERAKHIR KEMBALI KE PINK*/
+#page2.last-question {
+    background-image: url("closing-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* BACKGROUND PAGE 5 - DOA ANAK ANGKATAN */
+#page5 {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.45),
+            rgba(255, 255, 255, 0.45)
+        ),
+        url("angkatan.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* BACKGROUND PAGE 6 - SURAT */
+#page6 {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.45),
+            rgba(255, 255, 255, 0.45)
+        ),
+        url("bertiga.png");
+
+    background-size: 100% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #f8eff1;
+}
+
+/* Khusus tampilan HP */
+@media (max-width: 600px) {
+    #page6 {
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+    }
+}
+
+.closing-note {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1: OPENING -->
+<section id="page1" class="page active">
+
+    <p class="small">A littel something for you</p>
+
+    <h1>Hello, you.</h1>
+
+    <p>
+        Before we get to something,
+        let's take a little journey.
+    </p>
+    <button onclick="nextPage(2)">
+        Let's begin
+    </button>
+    
+</section>
+
+<!--PAGE 2: QUIZ-->
+<section id="page2" class="page">
+
+    <p class="small">A little game</p>
+
+    <h1>How well do you know me?</h1>
+    
+    <p id="question"></p>
+
+    <div id="answer"></div>
+
+    <p id="feedback"></p>
+
+    <button id="nextQuestion"
+    onclick="nextQuiz()"
+    style="display:none">
+    Next question
+
+</button>
+</section>
+
+<!-- PAGE 3: GALLERY -->
+ <section id="page3" class="page">
+    <p class="small">A collection of memories</p>
+
+    <h1>Little Memories.</h1>
+
+    <p>
+        some moments are too precious
+        to be forgotten.
+    </p>
+
+    <p class="closing-note">
+    gue tadinya mau pake lagu lilin kecil sesuai jawaban elu,
+    tapi ternyata gk nyambung gitu, jadi gue pakeny lagu ini ajh ya
+</p>
+
+    <audio id="birthdaySong" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <button onclick="toggleMusic()">
+        play our song 
+    </button>
+    <div>
+        <img src="foto1.JPG" class="photo" alt="kenangan 1">
+        <img src="foto2.JPG" class="photo" alt="kenangan 2">
+        <img src="foto3.jpg" class="photo" alt="kenangan 3">
+        <img src="foto4.JPG" class="photo" alt="kenangan 4">
+        <img src="foto5.jpg" class="photo" alt="kenangan 5">
+        <img src="foto6.jpg" class="photo" alt="kenangan 6">
+        <img src="foto7.jpg" class="photo" alt="kenangan 7">
+        <img src="foto8.jpg" class="photo" alt="kenangan 8">
+        <img src="foto9.jpg" class="photo" alt="kenangan 9">
+        <img src="foto11.jpg" class="photo" alt="kenangan 11">
+        <img src="foto12.jpg" class="photo" alt="kenangan 12">
+        <img src="foto13.jpg" class="photo" alt="kenangan 13">
+        <img src="foto14.jpg" class="photo" alt="kenangan 14">
+        <img src="foto15.jpg" class="photo" alt="kenangan 15">
+        <img src="foto16.jpg" class="photo" alt="kenangan 16">
+        <img src="foto17.jpg" class="photo" alt="kenangan 17">
+        <img src="foto18.jpg" class="photo" alt="kenangan 18">
+        <img src="foto19.jpg" class="photo" alt="kenangan 19">
+        <img src="foto20.jpg" class="photo" alt="kenangan 20">
+        <img src="foto21.jpg" class="photo" alt="kenangan 21">
+        <video class="photo" controls>
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+         <video class="photo" controls>
+            <source src="video2.mp4" type="video/mp4">
+        </video>
+        <img src="foto22.jpg" class="photo" alt="kenangan 22">
+        <img src="foto23.jpg" class="photo" alt="kenangan 23">
+        <img src="foto24.png" class="photo" alt="kenangan 24">
+        <img src="foto25.JPG" class="photo" alt="kenangan 25">
+        <img src="foto26.JPG" class="photo" alt="kenangan 26">
+        <img src="foto27.JPG" class="photo" alt="kenangan 27">
+        <img src="foto28.JPG" class="photo" alt="kenangan 28">
+        <img src="foto29.JPG" class="photo" alt="kenangan 29">
+        <img src="foto30.png" class="photo" alt="kenangan 30">
+      
+    </div>
+
+    <button onclick="nextPage(4)">
+        one more thing
+    </button>
+
+ </section>
+
+ <!-- PAGE 4: SUPRISE -->
+  <section id="page4" class="page">
+    <p class="small">And finally...</p>
+
+    <h1>hadiah tak seberapa dari ku karna kamu super "membanggakan"</h1>
+
+    <h2>HAPPY BIRTHDAY, JALPA</h2>
+
+    <p>
+        There's one last thing
+        I want you to read.
+    </p>
+
+    <button onclick="nextPage(5)">
+        open your letter
+    </button>
+
+  </section>
+
+  <!-- PAGE 5: LETTER -->
+   <section id="page5" class="page">
+    
+    <p class="small"> some of our wishes for u </p>
+    
+    <h1> Dear ujep...</h1>
+
+    <div class="letter">
+        <p>
+            halo ujep, kita atsquertis
+        </p>
+
+        <p>
+            mpai:
+            "semoga selalu dilindungi Allah dan dikelilingi orang orang baik, terus dapet jodohny yang sempurna yang bisa ngertiin yang pokonya tuh bisa ngertrit elu dengan baik. terus semoga bahagia selalu dan jangan nangis terus, semangat kuliahnya semoga cita cita bisa tercapai. ya pokonya happy happy lah, semoga selalu dapet keberuntungan, jangan lupa sholat sama doa, kalo butuh chat aja, gua selalu ada, mungkin slowres dikit bcs gua sibuk banget cok"
+        </p>
+        <p>
+            najila:
+            "guaaa berharap semoga ka jalpaa jadi orang yang sukses dan bisa jadi kebangaan orang tua"
+        </p>
+        <p>
+            jalpung:
+            "hai kaa selamat bertambah umur yaa semoga Kaka bisa menjadi anak yang berbakti sama ke dua orang tua nya,kalo lelah jangan lupa istirahat yaa, inget ya kak kegagalan itu bukan penentu hasil dari segala nya itu cuma semesta ngajarin Kaka buat lebih semangat dan tangguh lagi,hebat kak udah bertahan sejauh inii, semangat terus yaa aku dukung Kaka dari jauh,kalo lelah istirahat jangan lupa makan oiya ibadah jangan di tinggal juga yaaa""
+        </p>
+        <p>
+            itoo:
+            HABIDIIIII UJEPPPP
+            semogaa di umurr sekrangg ujepp bisaa mencapaii apaa yangg ujepp impikann,semogaa ujep sehat selaluu yaa,semogaa ujepp selalu di kelilingi orangg orangg yg baikk,semogaa ujepp bisaaa suksess,banggain orangg² sekitarr ujeppp,aamiinnn. ujepp semangattt yaaa ngejalanin kehidupan yang nyataaa inii,ujepp jangan ngerasaa sendirii yaa kalo adaa apaa² ceritaa sama kitaaa kan adaa atsquertisss yaapp.
+            semogaaa yg di semogakann tersemogakann yappp .
+
+        </p>
+        <p>
+            dinda:
+            buat zalfaa dari manusia yang paling cantik dan imut ini.
+            "happy birthday, semoga panjang umur, sehat selalu, diluaskan hatinya, dimudah dan dilancarkan segala urusanya dengan alloh. harapan gua buat lu semoga menjadi pribadi yang lebih baik lagi, selalu ingat alloh dan gua dimanapun lu berada😉, semoga lulus kuliah dengan nilai yg baik, semangat terus belajarnya, semoga dapet jodoh yg baik yg kaya yg sayang sama lu dan keluarga lu yg yg yang aus yang aus... apalagi yaa gua bingung nihh gua jarang' long teks ke orng nihh, udahh lah yaa segini ajj sisanya doa sendiri ajj gua cape mau bocan (bobo cantik)"
+            wihs you all the best🥳😘❤️
+        </p>
+        <p>
+            arina:
+            buat ujep, selamat ulang tahun. semoga semua urusan nya di permudah sama Allah, dan dapat menjadi anak yang membanggakan orang tua
+        </p>
+        <p>
+            jara:
+            happy birthday!! semoga di umur yg baru ini selalu di kelilingi hal hal baik, hope you get good days, good people, and enough reasons to smile. stay healthy and stay kind
+        </p>
+        <p>
+            naila:
+            barakallah ka zalfa, sehat selalu panjang umur (aamiin) semoga di tahun ini bisa jadi lebih baik, jadi anak yg berbakti kpd orang tua.
+            semangat ka kuliahnya semoga lancar selalu
+            <img src="surat1.jpeg" class="photo" alt="letter 1">
+        </p>
+        <p>
+            pira:
+            assalamuallaikum umenggg
+            inii pira imut
+            habedee ujepp kuu cintahh panjangg umur sehat selaluu nenekk,ciee dah kelapa dua aja,semoga di tahun ini banyak kebaikan yang ujep dapetin yaa selalu di kelilingii orang' yang sayangg sama ujepp aamiin,oiyaa semangatt yaa kuliahnya jangan pantang menyerahh semangatt teruss pokoknyaa,doa terbaikk darii piaa cantikk🤍
+        </p>
+        <p>
+            qonita:
+            happy birthday kak jalpaaa ...
+            semangattt selalu ya,semoga kak jalpa selalu diberikan kemudahannnn dan selalu dalam keadaan sehat di mana pun kak jalpa berada .dan kuliahnya dimudahkan  semangat mengerjakan kehidupan yg akan diraih dimasa depan yg cerah untuk kak jalpa...semangatttt
+            #from Qonita.
+        </p>
+        <p>
+            muqi:
+            HAPPY BIRTHDAYYY UJEPP
+            cieee nambahh umurr dah punya kepala duaa aww, semoga sehat selaluu, dipanjangkan umurnyaa, intinya mahh doa terbaik dah buat ujepp cintahh gemesshhh, koling koling akuu yaa kalo sidang skripsiii, soalnya mau aku qosidahiin, pokoknya kita ga boleh last contact sampe ujep punya anak aww, udah dechh segini aja bingung euyy, bawang bawang apa yang suka pergi?? bawang bomBYEE, dah ah dadaaahh
+            #salam CKM
+            muqiii
+        </p>
+        <p>
+            note:
+            ini belum sempet semua gue dapetin, karna jujur gue baru kepikiran deket deket ini buat bikin hadiah ini. walaupun kmren banyak anak squerlla yg lagi jenguk, gue lupa buat mintain ke mrka. jadi sori bgt karna seadany ajh yaa. tapi gue yakin mrka pasti punya banyak doa dan harapan yang baik buat elu.
+        </p>
+
+        <p>With love, from atltantis and squerlla </p>
+    </div>
+
+     <button onclick="nextPage(6)">
+        more
+    </button>
+
+   </section>
+
+   <!-- PAGE 6: LETTER -->
+    <section id="page6" class="page">
+
+<p class="small"> A little letter for u </p>
+
+ <h1> Dear jalpa</h1>
+
+  <div class="letter">
+    <p>
+        haiii, selamat ulang tahun sayangkuuu
+    </p>
+
+    <p>
+                    cieee tambah umur, makin tua, yaampun 20 tahun.
+            gue gamau banyak ngomong buat ultah lu yg sekarang, gue harap semoga di usia baru lu ini lu bisa jadi pribadi yang jauh lebih baik dari yang sebelumnya.
+            gaada yg maksa elu buat harus jadi yg terbaik, atau harus terus selalu tumbuh di setiap harinya. kalo emang lu capek lu boleh banget buat istirahat, gaperlu tumbuh dulu, pelan pelan ajh. lu gapapa banget kalo emang belom bisa jadi lebih baik dari sebelumnya, tapi gue mohon jangan sampe malah jadi yang lebih buruk dari yg sebelumnya.
+            Semoga di usia baru lu ini lu bisa lebih deket lagi sama Allah, dan istiqomah terus 
+            Semoga di usia baru lu ini orang tua lu selalu diberi kesempatan dan kesehatan sampe bisa nyaksiin kesuksesan lu
+            Semoga di usia baru lu ini banyak wish list elu yg tercapai mulai dari yang kecil sampe yg besar sebesar apapun.            
+            Semoga di usia baru lu ini lu selalu dikelilingi orang orang baik, bukan cuma baik di depan tapi juga baik di belakang.            
+            Semoga di usia baru ini lu selalu diberi kesehatan fisik dan mental buat hadepin dunia yg gk worth it ini.            
+            Semoga di usia baru ini lu selalu diberi kebahagiaan dan ketenangan dalam hidup elu ya.
+            Semoga di usia baru lu ini lu bisa lebih kuat dari yg sebelumnya.            
+            Semoga di usia baru lu ini setiap kebaikan yg selama ini lu kasih buat orang lain kembali ke diri elu dalam bentuk yg lebih baik.                        
+            Semoga di usia baru lu ini segala keinginan yg udah lu ikhlasin bisa diganti sama Allah dengan plotwist yg gk pernah lu sangka.            
+            Semoga di usia baru lu ini setiap kesalahan lu di masa lalu, lu jadiin sebagai pembelajaran, bukan jadi alesan buat selalu nyalahin diri lu sendiri.
+            Semoga di usia baru lu ini lu selalu punya alesan buat terus tersenyum.
+            Semoga di usia baru lu ini rezeki lu selalu diperlancar dan diberkahkan.
+            Semoga di usia baru lu ini Allah terus jaga hubungan baik lu dengan siapapun itu.
+            Semoga di usia baru lu ini Allah jauhin dari orang orang jahat.
+            Semoga di usia baru lu ini lu selalu punya tempat buat pulang istirahat dan bikin lu tenang.
+            Semoga di usia baru lu ini lu bisa terus semangat ngejar cita cita lu.
+            Semoga di usia baru lu ini lu bukan cuma nambah dewasa tapi juga harus nambah porsi bahagia lu.
+            Semoga di usia yg baru ini lu tetep jadi diri elu yg gue kenal, yg aisah kenal, yg atlantis kenal, dan yg atsquertis kenal
+            dan semoga di usia yg baru ini gue tetep bisa nemenin elu sampe entah kapanpun itu
+            dan dari sekian banyakny doa, gue harap semoga dunia selalu memperlakukan lu dengan baik.
+            lu harus inget 1 hal, kalo emang dunia lagi gk baik baik ajh, ada Allah yang gk bakal pernah ngebiarin lu ngerasa sendirian
+            gue mau minta maaf banget buat segala kekurangan gue dan segala hal yg udah bikin lu sakit hati selama setahun kebelakang dan seterusnya
+            sehat dan bahagia terus ya, bahagia lu bahagia gue juga
+            semangat kuliahnya nya, jangan berhenti tengah jalan, semoga nanti kita bisa rayain semua hal ber3 lagi dan semoga dari sekian banyakny tren, kita nggk join yang STOP THE WEDDING ya
+            ayok rayain hari special ini
+            "20 wishes for your 20th chapter"
+            sekali lagi
+            selamat ulang tahun
+            peluk jauh
+    </p>
+    <p> from me, from juhoon wife </p>
+  </div>
+
+  <button onclick="nextPage(7)">
+    One last thing ♡
+  </button>
+    </section>
+
+<!-- PAGE 7: CLOSING -->
+ <section id="page7" class="page">
+
+    <h1>And that's a wrap.</h1>
+
+    <p>Some moments are worth going through twice.</p>
+
+    <button onclick="nextPage(1)">
+         ♡ Back to the beginning
+    </button>
+
+    <p>That's all for now ♡</p>
+ </section>
+
+   <script>
+    function nextPage(number) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+
+        document.getElementById('page' + number).classList.add('active');
+    }
+
+// DAFTAR PERTANYAAN QUIZ
+    const questions = [
+        {
+            question: "siapa nama jodoh amer",
+            answer: ["diyas", "jake", "juhoon", "jungwoon"],
+            correct: 0
+        },
+        {
+            question: "apa warna kesukaan gue?",
+            answer: ["pink", "ungu", "biru-abu", "biru"],
+            correct: 2
+        },
+        {
+            question: "apa yang amer lakuin kalo mau bobo?",
+            answer: ["nyari barang random", "berdoa", "berwudhu", "baca ayat kursi"],
+            correct: 0
+        },
+        {
+            question: "apa jurusan impian amer?",
+            answer: ["tafsir", "gizi", "pmh", "psikologi"],
+            correct: 3
+        
+        },
+        {
+            question: "eh btw, sekarang tanggal berapa sih?",
+            answer: ["19-10-26", "19-11-26", "14-10-08", "18-12-08"],
+            correct: 1
+        }
+
+    ];
+    
+    let currentQuestion = 0;
+
+// MENAMPILKAN PERTANYAAN
+function showQuiz() {
+    const q = questions[currentQuestion];
+
+    const quizPage = document.getElementById("page2");
+    quizPage.classList.toggle(
+        "last-question",
+        currentQuestion === questions.length - 1
+    );
+
+    document.getElementById("question").textContent = q.question;
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("nextQuestion").style.display = "none";
+
+    const answerArea = document.getElementById("answer");
+    answerArea.innerHTML = "";
+
+    q.answer.forEach((answer, index) => {
+        const button = document.createElement("button");
+
+        button.className = "answer";
+        button.textContent = answer;
+        button.onclick = () => answerQuiz(index);
+
+        answerArea.appendChild(button);
+    });
+}   
+    // MEMERIKSA JAWABAN
+    function answerQuiz(choice) {
+        const q = questions[currentQuestion];
+
+        document.querySelectorAll(".answer").forEach(button => {
+            button.disabled = true;
+        });
+        
+        if (choice === q.correct) {
+            document.getElementById("feedback").textContent =
+            "asekk bener!";
+        } else {
+            document.getElementById("feedback").textContent = 
+            "yaelah salah!;"
+        }
+
+        document.getElementById("nextQuestion").style.display = "inline-block";
+    }
+
+// LANJUT KE PERTANYAAN BERIKUTNYA
+    function nextQuiz() {
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            showQuiz();
+        } else {
+            nextPage(3);
+        }
+    }
+    function toggleMusic() {
+        const song = document.getElementById("birthdaySong");
+
+        if (song.paused) {
+            song.play();
+        } else {
+            song.pause();
+
+        }
+    }
+
+showQuiz();
+   </script>
+</body>
+</html>
+
+
+
